@@ -1,0 +1,46 @@
+CREATE TABLE Resturant(
+Name VARCHAR(255) NOT NULL,
+Address VARCHAR(255) NOT NULL,
+Resturantid INTEGER NOT NULL,
+PRIMARY KEY(resturantid)
+);
+
+CREATE TABLE Customer(
+CustomerID INTEGER NOT NULL,
+Orders INTEGER NOT NULL,
+Location VARCHAR(255) NOT NULL,
+PRIMARY KEY (CustomerID)
+);
+
+CREATE TABLE Seats(
+TableID INTEGER NOT NULL,
+CustomerID INTEGER NOT NULL,
+Availabletables INTEGER NOT NULL,
+Availableseats INTEGER NOT NULL,
+PRIMARY KEY (TableID),
+FOREIGN KEY (CustomerID) REFERENCES customer(CustomerID)
+);
+
+CREATE TABLE DeliveryStaff(
+DeliverystaffID INTEGER NOT NULL,
+CustomerID INTEGER NOT NULL,
+Location VARCHAR(255) NOT NULL,
+PRIMARY KEY(DeliverystaffID),
+FOREIGN KEY (CustomerID) REFERENCES customer (CustomerID)
+);
+
+CREATE TABLE Reviews (
+CustomerID INTEGER NOT NULL,
+Dishid INTEGER NOT NULL,
+Comment VARCHAR (255),
+Rating INTEGER,
+FOREIGN KEY (CustomerID),
+FOREIGN KEY (Dishid) REFERENCES Menu(Dishid)
+);
+
+CREATE TABLE Menu(
+Dishid INTEGER NOT NULL,
+Food VARCHAR(255) NOT NULL,
+Drinks VARCHAR(255) NOT NULL,
+Todaysspecial VARCHAR(255) NOT NULL
+);

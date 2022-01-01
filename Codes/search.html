@@ -1,0 +1,139 @@
+<html>
+
+    <head>
+        <title>
+            Search Page
+        </title>
+        <link rel="stylesheet" href="style.css">
+
+
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+        <script src="//code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    </head>
+    <style>
+        .each {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    </style>
+
+    <body>
+        <div class="header">
+            <div class="row">
+                <nav>
+                    <ul>
+                        <a href="Main.html">
+                            <li>
+                                Site Homepage
+                            </li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+            <form action="food.php" method="get">
+                <div class="each">
+                    <label for="Menu">Search For Menu(By Food)</label><br>
+                    <input id ="food" type="text" name="food_name" required>
+                    <button name="search">Search</button>
+                </div>
+            </form>
+            <form action="chef.php" method="get">
+                <div class="each">
+                    <label for="Chef">Search For Chef(By ID)</label><br>
+                    <input id ="chef_id" type="text" name="chef_id" required>
+                    <button>Search</button>
+                </div>
+            </form>
+            <form action="customer.php" method="get">
+                <div class="each">
+                    <label for="Customer">Search For Customer(By ID)</label><br>
+                    <input id="customer_id" type="text" name="autocomplete" required>
+                    <button>Search</button>
+                </div>
+            </form>
+        </div>
+
+        <script type="text/javascript">
+            // let jsonRes;
+            $(document).ready(function getJson() {
+                // $("#search_input").keyup(function() {
+                // console.log("entering into funciono")
+                $("#food").keyup(function () {
+
+                    var search = $(this).val();
+                    console.log("hhhhhhhh")
+
+                    if (search != "") {
+                        $.ajax({
+                            url: 'getdata_food.php',
+                            type: 'POST',
+                            data: {
+                                search: search
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                $("#food").autocomplete({source: response});
+
+                            },
+                            error: function (error, status, exception) {
+                                console.log('Exception:', exception, status, error);
+                            }
+                        });
+                    }
+                });
+
+                $("#chef_id").keyup(function () {
+
+                    var search = $(this).val();
+
+                    if (search != "") {
+                        $.ajax({
+                            url: 'getdata_chef.php',
+                            type: 'POST',
+                            data: {
+                                search: search
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                $("#chef_id").autocomplete({source: response});
+
+                            },
+                            error: function (error, status, exception) {
+                                console.log('Exception:', exception, status, error);
+                            }
+                        });
+                    }
+                });
+
+
+                $("#customer_id").keyup(function () {
+
+                    var search = $(this).val();
+
+                    if (search != "") {
+                        $.ajax({
+                            url: 'getdata_customer.php',
+                            type: 'POST',
+                            data: {
+                                search: search
+                            },
+                            dataType: 'json',
+                            success: function (response) {
+                                $("#customer_id").autocomplete({source: response});
+
+                            },
+                            error: function (error, status, exception) {
+                                console.log('Exception:', exception, status, error);
+                            }
+                        });
+                    }
+                });
+
+
+            });
+        </script>
+    </body>
+</html>
